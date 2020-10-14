@@ -1,0 +1,207 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[version=3.21, pagesize, twoside=off, bibliography=totoc, DIV=calc, fontsize=12pt, a4paper]{scrartcl}
+\input{preamble/packages}
+\input{preamble/redac}
+\input{preamble/math_basics}
+\input{preamble/math_mine}
+
+%I find these settings useful in draft mode. Should be removed for final versions.
+	%Which line breaks are chosen: accept worse lines, therefore reducing risk of overfull lines. Default = 200.
+		\tolerance=2000
+	%Accept overfull hbox up to...
+		\hfuzz=2cm
+	%Reduces verbosity about the bad line breaks.
+		\hbadness 5000
+	%Reduces verbosity about the underful vboxes.
+		\vbadness=1300
+
+\title{Observing deliberated judgments \thanks{Draft!}}
+\author{Olivier Cailloux}
+\author{Remzi Sanver}
+\affil{Université Paris-Dauphine, PSL Research University, CNRS, LAMSADE, 75016 PARIS, FRANCE\\
+	\href{mailto:olivier.cailloux@dauphine.fr}{olivier.cailloux@dauphine.fr}
+}
+\hypersetup{
+	pdfsubject={},
+	pdfkeywords={},
+}
+
+\begin{document}
+\maketitle
+
+\section{Arguments and DJ}
+\label{sec:intro}
+\begin{itemize}
+	\item $A ≠ \emptyset$ is the set of arguments.
+	\item $A^0 = \set{\emptyset}$, $A^1 = A$, and given $k \in \N^*$, $A^{k + 1} = A × A^k$. Throughout this article, $\N$ includes $0$ and $\N^* = \N \setminus \set{0}$.
+	\item $\Astar = \bigcup_{k \in \N} A^k$ are all finite sequences of arguments, including $\emptyset$, the empty sequence of arguments.
+	\item $\Phi = {\phi^+, \phi^−}$ are the possible judgments. The semantics of $\phi^−$ is to be the complement of $\phi^+$, e.g. $\phi^+$ is to be sure of something, and $\phi^−$ is to be doubtful or sure of the contrary). Given $\phi \in \Phi$, $\phibar$ denotes the element of $\Phi$ that is not $\phi$.
+	\item $I ≠ \emptyset$ is the set of individuals.
+	\item $\pib: I × \Astar → \Phi$ represents the reactions of individuals to sequences of arguments, called the behavioral function.
+	\item Given $i \in I$, $\pib_i(\alpha) = \pib(i, \alpha)$, thus $\pib_i: \Astar → \Phi$ represents the reactions of $i$ to sequences of arguments.
+\end{itemize}
+\begin{remark}[$\pib$ and counterfactual behavioral functions]
+	The symbol $\pib$ denotes a unique given function that is determined by the world we live in, and generally unknown to us. We will also use the symbol $\pi \in \Phi^{I × \Astar}$ to denote a generic behavioral function, that is, a generic function of the same form. This permits (when $\pi ≠ \pib$) counterfactual reasonings.
+\end{remark}
+
+$a$ is towards the end of $\alpha$ iff $a$ is the last or before last element of $\alpha$, thus, given $l$ the length of $\alpha$, iff $\exists \beta \suchthat \alpha = (\beta, a)$ or $\exists \beta, b \suchthat \alpha = (\beta, a, b)$.
+\begin{definition}[Decisive argument]
+	$a$ is decisive for $(\phi, i)$ iff $\forall \alpha \in \Astar$, if $a$ is towards the end of $\alpha$, then $\pib_i(\alpha) = \phi$.
+\end{definition}
+
+\begin{definition}[Deliberated judgment]
+	$\phi$ is deliberated for $i$ iff $\exists a$ decisive for $(\phi, i)$.
+\end{definition}
+Let $\Phi_i$ denote the set of deliberated judgments of $i$: $\phi \in \Phi_i$ iff $\phi$ is deliberated for $i$.
+\begin{remark}[Determined DJ VS DJ]
+	To be more precise, we should write that $\phi \in \Phi_i$ means that $\phi$ is determined as being deliberated for i. And $\phi$ is determined as deliberated for $i$ implies that $\phi$ is deliberated for $i$.
+\end{remark}
+\begin{remark}[$i$ VS $\pib_i$]
+	We can also replace $i$ with $\pib_i$ in those notations to make the relation to $\pib$ explicit, thus, we can write equivalently that $a$ is decisive for $(\phi, \pib_i)$, and that $\phi$ is deliberated for $\pib_i$, and that $\phi \in \Phi_{\pib_i}$. Further, these definitions naturally extend to apply to any $\pi$ instead of $\pib$, thus, we can write that $a$ is decisive for $(\phi, \pi_i)$, and so on.
+\end{remark}
+
+\begin{proposition}[Non contradiction]
+	If $\phi \in \Phi_i$, then $\phibar \notin \Phi_i$.
+\end{proposition}
+\begin{proposition}[Incompleteness]
+	$\exists \pi_i \suchthat \Phi_i = \emptyset$.
+\end{proposition}
+
+\section{Problem set up}
+Finite observation never leads to knowing anything about DJs.
+In other words, no verifiable hypothesis on the basis of finite observations are enough to know anything about the DJs. This is an instance of a well known problem: general enough theories can’t be finitely verified.
+The usual “workaround” is to rely on falsifiable claims instead.
+Capture of shallow (classical) preferences using only falsifiable claims was achieved by the celebrated approach proposed by Samuelson, relating preferences to choice behavior, which is observable.
+
+In normative decision theories, the picture differs. Axioms are used that claim that we ought to decide in such and such a way, and these axioms are used to obtain conclusions on the basis of observable data. For example, the SEU principle is codified in axioms proposed by Savage. Observable data serve to parameterize the utility function of an individual, which can then be used for recommendation.
+Normative axioms are neither verifiable, nor falsifiable. They simply rest on their own convincing power. This puts them out of reach of observations, and leads to endless disputes, as disagreements are not dissolvable by experiences. Also, their convincing power is usually accessible only to the specialists, who can read the formal language in which these axioms are phrased, and realize (some of the) consequences of accepting these axioms.
+Relatedly, they cause a risk of being applied to recommend to persons who would not accept these axioms as codifying a reflexive behavior, would they fully understand these axioms and their consequences. 
+
+We want to bridge the world of observable preferences, which permits to obtain results that rest on falsifiable or verifiable claims, and normative decision making, that wishes to be able to recommend courses of actions that may differ from the usual course of action that an individual would have taken without recommendation.
+
+Our main task will be to study the ways we can deduce anything about anyone’s DJ on the basis of mostly verifiable or falsifiable claims. What general forms should these claims adopt?
+
+%We can theorize on pi, this is falsifiable. We can mandate to predict the whole of pi, but it is not necessary. Thus, what form should such theory take? Characterize the class of falsifiable theories and represent them.
+%Idea: if we are to know anything about the DJ with falsifiable hyp, we need to use my empirical theories of DJ.
+%Thm [Debates suffice]:
+%Thm [The necessity of debating]: the theory must have the form of a function that answers every argument.
+
+\section{Observations and claims}
+\begin{itemize}
+	\item $Q \subseteq I × \Astar$ represents a set of queries.
+	\item $\piQ \in \Phi^Q$ is the restriction of $\pi$ to the sub-domain $Q$, thus, $\piQ(i, \alpha) = \pi(i, \alpha), \forall (i, \alpha) \in Q$. The function $\pibQ$ represents a set of observations, and $\piQ$ is the set of observations corresponding to the query $Q$ under the hypothesis that $\pi$ would be the behavioral function.
+	\item $\pi'$ is compatible with $\piQ$ iff $\restr{\pi'}{Q} = \piQ$.
+	\item $\cpiQ$ is the set of behavioral functions compatible with the observations $\piQ$, thus $\pi' \in \cpiQ$ iff $\pi'$ is compatible with $\piQ$.
+\end{itemize}
+
+$\piQ$ permits to deduce that $i$ judges deliberately that $\phi$, denoted by $\piQ \vdash \phi \in \Phi_i$, iff $\forall \pi' \in \cpiQ: \phi \in \Phi_{\pi'_i}$.
+
+\begin{example}[An anecdotal claim]
+	\label{ex:anecdotal}
+	Fix some $i$, $\phi$ and $a, b \in A$, and define $C = \set{\pi \suchthat \pi_i(a, b) = \phi}$.
+	This claim permits to deduce nothing.
+\end{example}
+\begin{example}[A direct claim]
+	\label{ex:direct}
+	Fix some $i$ and $\phi$, and define $C = \set{\pi \suchthat \phi \in \Phi_i}$.
+	This claim permits to deduce that $\phi \in \Phi_i$.
+\end{example}
+\begin{example}[A claim about decisiveness]
+	\label{ex:decisiveness}
+	Fix some $i$ and $\phi$, and define $C = \set{\pi \suchthat \exists a \suchthat a \text{ is decisive for } (\phi, \pi_i)}$. 
+	This claim permits to deduce that $\phi \in \Phi_i$.
+\end{example}
+\begin{example}[A substantial claim about decisiveness]
+	\label{ex:substantial}
+	Fix some $i$, $\phi$ and $a$, and define $C = \set{\pi \suchthat a \text{ is decisive for } (\phi, \pi_i)}$.
+	This claim permits to deduce that $\phi \in \Phi_i$.
+\end{example}
+
+\begin{proposition}[No finite observations suffice]
+	$\nexists \text{ finite } \piQ, i, \phi \suchthat \piQ \vdash \phi \in \Phi_{\pi_i}$.
+\end{proposition}
+
+$C \subseteq \Phi^{I × \Astar}$ is a claim, it has the semantics: “$\pib \in C$”.
+
+$C$ permits to deduce that $\phi \in \Phi_i$, denoted by $C \vdash \phi \in \Phi_i$ (using the deduction symbol $\vdash$ used in logic), iff $\forall \pi \in C: \phi \in \Phi_{\pi_i}$.
+
+The following definition can be understood by realizing that, first, after having observed $\pibQ$, we know that $\pib \in \cpibQ$, and nothing more; and second, to prove that a claim $C$ holds, it is necessary and sufficient to prove that $\pib \in C$. Thus, intuitively, the observations $\pibQ$ prove the claim $C$ iff knowing only that $\pib \in \cpibQ$ is enough to conclude that $\pib \in C$.
+\begin{definition}[Verification]
+	\label{def:verif}
+	A set of queries $Q$ verifies a claim $C$ iff $\forall \pi \in \cpibQ: \pi \in C$.
+	A claim is \emph{verifiable} iff $\exists \text{ finite } Q$ that verifies it.
+\end{definition}
+\begin{definition}[Falsification]
+	\label{def:fals}
+	A claim $C$ is falsified by $\piQ$ iff $C \cap \cpiQ = \emptyset$. 
+	A claim $C$ is \emph{falsifiable} iff $\exists \text{ finite } \piQ \suchthat C$ is falsified by $\piQ$.
+\end{definition}
+% [“No \pi' \in R complete \pi'|Q”, or “the set of claimed possibilities and the set of possibilities according to our observations do not cohere”].
+
+\begin{example}[A verifiable claim]
+	The claim defined in \cref{ex:anecdotal} is verifiable.
+\end{example}
+\begin{example}[A direct, non falsifiable claim]
+	The claim defined in \cref{ex:direct} is not falsifiable.
+\end{example}
+\begin{example}[A claim that is falsifiable for finite arguments]
+	The claim defined in \cref{ex:decisiveness} is falsifiable iff $A$ is finite.
+\end{example}
+\begin{remark}[Falsifiability under finite arguments]
+	Being falsifiable under assumption of finiteness of $A$ may, from a cursory reading, be thought sufficient for practical applicability. Our perspective in this article differs. We grant that $A$ need not be infinite, but in most non trivial applications, it will be large. If a claim is not falsifiable under infinite arguments but is falsifiable under finite arguments, then falsifying that claim might reveal extremely hard: as a general reasoning will not suffice to provide falsification, some reasoning that examines each argument in turn might be required.
+	
+	A case in point is \cref{ex:decisiveness}: falsifying that claim requires to show experimentally that no argument is decisive. This basically reverses the burden of the proof from the claimant to the person who attempts to falsify the claim.
+	(Obviously, the very falsificationist approach inevitably involves such an inversion of the burden of the proof, but reasonable efforts must be made to ease falsification if this approach is not to turn into a blanket permission for asserting claims that are simply very hard to disprove.)
+	
+	Therefore, we think it is reasonable to mandate that claims be falsifiable also when $A$ is infinite. In other words, we consider “infinity” as a mere extreme case of being “large enough” that systematic examination of the arguments one by one be not feasible for practical reasons. It is of course possible to obtain more precise results involving the cardinality of the considered sets, but at this stage of the investigation, we think that such an attempt would obscure our results for a gain in precision that risks to be seldom useful.
+\end{remark}
+	
+\begin{example}[A falsifiable, non verifiable claim]
+	The claim defined in \cref{ex:substantial} is falsifiable but is not verifiable.
+\end{example}
+
+\begin{proposition}[No verifiable claim suffices]
+	$\nexists \text{ verifiable } C, i, \phi \suchthat C \vdash \phi \in \Phi_i$.
+\end{proposition}
+
+\begin{proposition}[Simple observability]
+	\label{prop:simpleobs}
+	$\exists \text{ falsifiable } C \suchthat C \vdash \phi \in \Phi_i$.
+\end{proposition}
+\begin{proof}
+	\Cref{ex:substantial} provides a suitable example.
+\end{proof}
+\Cref{prop:simpleobs} provides a positive result, but it may reveal non applicable in many non-trivial situations, for multiple reasons. Not every observations may be possible. Individuals may not all have the same DJ. When individuals have the same DJ, they may not accept the same decisive argument: depending on their background, different argumentative paths may be required to lead them to their DJ. Even when individuals accept the same decisive argument, this argument may be unknown to the scientist, thus obtaining a claim of the form exhibited in \cref{ex:substantial} may be unduly demanding. We want to explore the possibility (or necessity, depending on the circumstances) of using weaker claims.
+
+Let $l_\alpha$ denote the length of the sequence of arguments $\alpha$. Say that $\alpha$ is a prefix of $\beta$ iff $l_\alpha ≤ l_\beta$ and $\forall 1 ≤ k ≤ l: \alpha_k = \beta_k$.
+
+\begin{definition}[Short memory]
+	$Q$ assumes short memory iff $\exists i, \alpha, \alpha' \suchthat (i, \alpha), (i, \alpha') \in Q$, with neither of $\alpha$ and $\alpha'$ being a prefix of the other one.
+\end{definition}
+Queries $Q$ are said to be memory-compatible otherwise, i.\ e., when $Q$ interrogates each $i$ only about sequences of arguments that can be arranged in such a way that one is a prefix of the previous one (except for the first one).
+A claim is memory-compatibly falsifiable iff $C$ is falsified by some finite $\piQ$ with $Q$ being memory-compatible.
+Observe that \cref{prop:simpleobs} fails when mandating memory-compatibility.
+\begin{proposition}[No memory-compatible observability for finite $I$]
+	Assuming a finite $I$ and infinitely many arguments, $\nexists \text{ memory-compatibly falsifiable } C, i, \phi \suchthat C \vdash \phi \in \Phi_i$.
+\end{proposition}
+
+\begin{theorem}[Observability of DJ]
+	Assuming infinite $I$, $\exists \text{ memory-compatibly}$ $\text{ falsifiable } C, i, \phi \suchthat C \vdash \phi \in \Phi_i$.
+\end{theorem}
+
+\section{Querying strategies}
+We could also explore the realm of querying strategies: how should we query individuals to obtain (partial) knowledge of their DJ?
+
+\begin{definition}[Querying strategy]
+	A querying strategy $(Q, q)$ is a pair composed of a set $Q$ of queries and a function $q: \Phi^Q → I × \Astar$ that indicates which question should be asked next depending on the previous results.
+\end{definition}
+
+\appendix
+\section{Falsifiability}
+$C$ is tautological iff $C = \Phi^{I × Astar}$.
+Otherwise, intuition suggests that if it is verifiable, then it is falsifiable (“all verification attempts could have failed”).
+
+%\bibliography{bibl}
+
+\end{document}
+
